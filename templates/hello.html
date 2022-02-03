@@ -15,7 +15,7 @@
 {% endif %}
 
 
-<ul>
+<ul class="bg-dark">
     
 {% for todo in todos %}
     {{ macro.render_todo(todo) }}
@@ -24,4 +24,4 @@
 </ul>
 
 {{ super() }}
-{% endblock %}
+{% endblock content %}
