@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% import "macros.html" as macro %}
+
+{% block title %}
+    {{ super() }}
+    Bienvenido
+{% endblock %}
+
+{% block content %}
+
+{% if user_ip %}
+    <h1>Hola desde platzi, tu ip es {{ user_ip }}</h1>
+{% else %}
+    <a href="{{ url_for('home') }}">Ir a home</a>
+{% endif %}
+
+
+<ul>
+    
+{% for todo in todos %}
+    {{ macro.render_todo(todo) }}
+{% endfor %}
+
+</ul>
+
+{{ super() }}
+{% endblock %}
