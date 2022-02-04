@@ -30,3 +30,14 @@ class MainTest(TestCase):
         }
         response = self.client.post(url_for('hello_world'), data=fake_form)
         self.assertRedirects(response, url_for('hello_world'))
+        
+    def test_auth_blueprint_exist(self):
+        self.assertIn('auth', self.app.blueprints)
+        
+    def test_auth_login_get(self):
+        response = self.client.get(url_for('auth.login'))
+        self.assert200(response)
+        
+    def test_auth_login_render_form(self):
+        self.client.get(url_for('auth.login'))
+        self.assertTemplateUsed('auth/login.html')
