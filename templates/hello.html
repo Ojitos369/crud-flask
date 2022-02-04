@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import "macros.html" as macro %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
     {{ super() }}
@@ -8,14 +9,24 @@
 
 {% block content %}
 
+{% if username %}
+    <h1>Bienvenido {{username | capitalize }}</h1>
+{%endif%}
+
 {% if user_ip %}
-    <h1>Hola desde platzi, tu ip es {{ user_ip }}</h1>
+    <h3>Tu ip es {{user_ip}}</h3>
 {% else %}
-    <a href="{{ url_for('home') }}">Ir a home</a>
-{% endif %}
+    <a href="/home">Home</a>
+{%endif%}
 
 
-<ul class="bg-dark">
+<div class="container">
+    {{ wtf.quick_form(login) }}
+
+</div>
+
+
+<ul">
     
 {% for todo in todos %}
     {{ macro.render_todo(todo) }}
