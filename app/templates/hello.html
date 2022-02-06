@@ -11,6 +11,8 @@
 
 {% if username %}
     <h1>Bienvenido {{username | capitalize }}</h1>
+{% else %}
+    <a href="/auth/login">Login</a>
 {%endif%}
 
 {% if user_ip %}
@@ -18,12 +20,6 @@
 {% else %}
     <a href="/home">Home</a>
 {%endif%}
-
-
-<div class="container">
-    {{ wtf.quick_form(login) }}
-
-</div>
 
 
 <ul">

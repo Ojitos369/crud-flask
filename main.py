@@ -32,24 +32,17 @@ def home():
     return response
 
 
-@app.route('/hello', methods=['GET', 'POST'])
+@app.route('/hello')
 def hello_world():
-    login = LoginForm()
     user_ip = session.get('user_ip')
     username = session.get('username')
     context = {
         'todos': todos,
         'user_ip': user_ip,
-        'login': login,
         'username': username
     }
     
-    if login.validate_on_submit():
-        username = login.username.data
-        password = login.password.data
-        session['username'] = username
-        flash('Login Successful')
-        return redirect(url_for('hello_world'))
+    
     return render_template('hello.html', **context)
 
 # Run the app
