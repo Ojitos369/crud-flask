@@ -7,7 +7,7 @@ from app.firestore_service import *
 
 # Flask
 from flask import request, make_response, redirect, render_template, session, url_for, flash
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 app = create_app()
 
@@ -31,6 +31,7 @@ def internal_server_error(error):
 
 
 @app.route('/')
+@login_required
 def home():
     user_ip = request.remote_addr
     response = make_response(redirect('/hello'))
@@ -43,7 +44,7 @@ def home():
 def hello_world():
     todos = []
     user_ip = session.get('user_ip')
-    username = session.get('username')
+    username = current_user.id
     #users = get_users()
     if username:
         todos_res = get_todos(user_id = username)
@@ -53,7 +54,8 @@ def hello_world():
     context = {
         'todos': todos,
         'user_ip': user_ip,
-        'username': username
+        'username': username,
+        'current_user': current_user
     }
     
     

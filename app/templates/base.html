@@ -18,7 +18,11 @@
         {%include "navbar.html"%}
     {% endblock navbar %}
     {% for message in get_flashed_messages() %}
-        <div class="alert alert-success alert-dismissable">
+        {% if message == 'El usuario no existe' or message == 'La contraseña es incorrecta' %}
+            <div class="alert alert-danger alert-dismissable">
+        {% else %}
+            <div class="alert alert-success alert-dismissable">
+        {% endif %}
             <button type="button" data-dismiss="alert" class="close">&times;</button>
             {{ message }}
         </div>

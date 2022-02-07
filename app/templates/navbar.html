@@ -1,15 +1,3 @@
-<!-- <nav>
-    <ul>
-        <img class="mina" src="{{ url_for('static', filename = 'img/mina_snowman.jpg') }}" alt="Mina">
-        <li>
-            <a href="{{ url_for('home') }}">Home</a>
-        </li>
-        <li>
-            <a href="http://platzi.com" target="_Blank">Platzi</a>
-        </li>
-    </ul>
-</nav> -->
-
 <div class="navbar navbar-inverse" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -33,6 +21,9 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ url_for('home') }}">Inicio</a></li>
                 <li><a href="https://platzi.com" target="_blank">Platzi</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
