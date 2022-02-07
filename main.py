@@ -2,10 +2,11 @@ from flask import request, make_response, redirect, render_template, session, ur
 import unittest
 from app import create_app
 from app.forms import LoginForm
+from app.firestore_service import *
 
 app = create_app()
 
-todos = ['Task 1', 'Task 2', 'Task 3']
+#todos = ['Task 1', 'Task 2', 'Task 3']
 
 
 @app.cli.command()
@@ -34,8 +35,15 @@ def home():
 
 @app.route('/hello')
 def hello_world():
+    todos = []
     user_ip = session.get('user_ip')
     username = session.get('username')
+    #users = get_users()
+    if username:
+        todos_res = get_todos(user_id = username)
+        todos = [todo.to_dict()['description'] for todo in todos_res]
+    
+    
     context = {
         'todos': todos,
         'user_ip': user_ip,
@@ -50,3 +58,8 @@ def hello_world():
 # export FLASK_DEBUG=1
 # export FLASK_ENV=development
 # flask run
+
+# Conect with gcloud
+# gcloud init
+# gcloud auth login
+# gcloud auth application-default login
