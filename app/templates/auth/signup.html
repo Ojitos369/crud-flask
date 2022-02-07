@@ -3,15 +3,16 @@
 
 {% block title %}
     {{ super() }}
-    Login
+    Signup
 {% endblock %}
 
 {% block content %}
-    <h1>Inicia sesion</h1>
+    <h1>Registra tu cuenta nueva</h1>
+
     <div class="container">
-        {{ wtf.quick_form(login_form) }}
+        {{ wtf.quick_form(signup_form) }}
     </div>
 
-    <button><a href="{{ url_for('auth.signup') }}">Register</a></button>
+    <button><a href="{{ url_for('auth.login') }}">Login</a></button>
 
 {% endblock content %}

@@ -18,7 +18,7 @@
         {%include "navbar.html"%}
     {% endblock navbar %}
     {% for message in get_flashed_messages() %}
-        {% if message == 'El usuario no existe' or message == 'La contraseña es incorrecta' %}
+        {% if flash_errors %}
             <div class="alert alert-danger alert-dismissable">
         {% else %}
             <div class="alert alert-success alert-dismissable">

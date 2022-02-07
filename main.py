@@ -55,7 +55,8 @@ def hello_world():
         'todos': todos,
         'user_ip': user_ip,
         'username': username,
-        'current_user': current_user
+        'current_user': current_user,
+        'cantidad_lista': len(todos)
     }
     
     

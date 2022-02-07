@@ -22,14 +22,15 @@
 {%endif%}
 
 
-
-<ul">
-    
-{% for todo in todos %}
-    {{ macro.render_todo(todo) }}
-{% endfor %}
-
-</ul>
+{% if cantidad_lista > 0 %}
+    <ul>
+        {% for todo in todos %}
+            {{ macro.render_todo(todo) }}
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3>Sin pendientes</h3>
+{% endif %}
 
 {{ super() }}
 {% endblock content %}
