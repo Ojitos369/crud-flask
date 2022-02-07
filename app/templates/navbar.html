@@ -23,6 +23,9 @@
                 <li><a href="https://platzi.com" target="_blank">Platzi</a></li>
                 {% if current_user.is_authenticated %}
                     <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                    <li><a href="{{ url_for('auth.signup') }}">Register</a></li>
                 {% endif %}
             </ul>
         </div>
