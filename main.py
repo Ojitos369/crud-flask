@@ -4,7 +4,7 @@ import unittest
 # User
 from app import create_app
 from app.firestore_service import *
-from app.forms import TodoForm
+from app.forms import TodoForm, TodoUpdateForm
 
 # Flask
 from flask import request, make_response, redirect, render_template, session, url_for, flash
@@ -47,6 +47,7 @@ def hello_world():
     user_ip = session.get('user_ip')
     username = current_user.id
     form = TodoForm()
+    todo_update = TodoUpdateForm()
     #users = get_users()
     if username:
         todos_res = get_todos(user_id = username)
@@ -61,7 +62,8 @@ def hello_world():
         'username': username,
         'current_user': current_user,
         'cantidad_lista': len(todos),
-        'form': form
+        'form': form,
+        'todo_update': todo_update
     }
     
     if form.validate_on_submit():
@@ -73,7 +75,7 @@ def hello_world():
     
     return render_template('hello.html', **context)
 
-@app.route('/todo/delete/<todo_id>')
+@app.route('/todo/delete/<todo_id>', methods=['GET', 'POST'])
 @login_required
 def delete(todo_id):
     username = current_user.id
@@ -81,12 +83,21 @@ def delete(todo_id):
     flash('Tarea eliminada')
     return redirect(url_for('hello_world'))
 
-@app.route('/todo/done/<todo_id>')
+@app.route('/todo/toggle/<todo_id>', methods=['GET', 'POST'])
 @login_required
-def done(todo_id):
+def toggle(todo_id):
     username = current_user.id
-    todo_done(user_id = username, todo_id = todo_id)
-    flash('Tarea eliminada')
+    todo_toggle(user_id = username, todo_id = todo_id)
+    flash('Cambio de estado')
+    return redirect(url_for('hello_world'))
+
+@app.route('/todo/update/<todo_id>', methods=['GET', 'POST'])
+@login_required
+def update(todo_id):
+    username = current_user.id
+    description = request.form['description']
+    update_todo(user_id = username, todo_id = todo_id, description = description)
+    flash('Tarea actualizada')
     return redirect(url_for('hello_world'))
 
 # Run the app

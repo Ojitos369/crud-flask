@@ -17,3 +17,7 @@ class SignupForm(FlaskForm):
 class TodoForm(FlaskForm):
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Add')
+    
+class TodoUpdateForm(FlaskForm):
+    description = StringField('Description', validators=[DataRequired()])
+    submit = SubmitField('Update')
