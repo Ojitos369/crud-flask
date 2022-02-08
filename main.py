@@ -50,7 +50,10 @@ def hello_world():
     #users = get_users()
     if username:
         todos_res = get_todos(user_id = username)
-        todos = [todo.to_dict()['description'] for todo in todos_res]
+        for todo in todos_res:
+            todo_dict = todo.to_dict()
+            todo_dict['id'] = todo.id
+            todos.append(todo_dict)
     
     context = {
         'todos': todos,
@@ -69,6 +72,22 @@ def hello_world():
     
     
     return render_template('hello.html', **context)
+
+@app.route('/todo/delete/<todo_id>')
+@login_required
+def delete(todo_id):
+    username = current_user.id
+    delete_todo(user_id = username, todo_id = todo_id)
+    flash('Tarea eliminada')
+    return redirect(url_for('hello_world'))
+
+@app.route('/todo/done/<todo_id>')
+@login_required
+def done(todo_id):
+    username = current_user.id
+    todo_done(user_id = username, todo_id = todo_id)
+    flash('Tarea eliminada')
+    return redirect(url_for('hello_world'))
 
 # Run the app
 # export FLASK_APP=main.py

@@ -26,5 +26,18 @@ def create_todo(user_id, description):
     todo_collection_ref = db.collection('users').document(user_id).collection('todos')
     
     todo_collection_ref.add({
-        'description': description
+        'description': description,
+        'done': False
+    })
+    
+def delete_todo(user_id, todo_id):
+    todo_collection_ref = db.collection('users').document(user_id).collection('todos')
+    todo_ref = todo_collection_ref.document(todo_id)
+    todo_ref.delete()
+    
+def todo_done(user_id, todo_id):
+    todo_collection_ref = db.collection('users').document(user_id).collection('todos')
+    todo_ref = todo_collection_ref.document(todo_id)
+    todo_ref.update({
+        'done': True
     })

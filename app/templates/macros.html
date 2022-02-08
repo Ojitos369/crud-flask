@@ -1,3 +1,13 @@
 {% macro render_todo(todo) %}
-    <li>{{todo}}</li>
+    {% if todo['done'] %}
+        <div class="row justify-content-md-center">
+            <span class="col col-lg-4 text-success">{{ todo['description'] }}</span>
+    {% else %}
+        <div class="row">
+            <span class="col col-lg-4 text-danger">{{ todo['description'] }}</span>
+    {% endif %}
+    <a name="" id="" class="btn btn-primary col" href="/todo/delete/{{ todo['id'] }}" role="button">Delete</a>
+    <a name="" id="" class="btn btn-primary col" href="/todo/done/{{ todo['id'] }}" role="button">Done</a>
+    </div>
+    <hr>
 {% endmacro %}

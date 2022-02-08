@@ -24,7 +24,8 @@
 
 
 {% if cantidad_lista > 0 %}
-    <ul>
+    <ul class="container">
+        <hr>
         {% for todo in todos %}
             {{ macro.render_todo(todo) }}
         {% endfor %}
