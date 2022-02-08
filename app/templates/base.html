@@ -1,0 +1,39 @@
+{% extends "bootstrap/base.html" %}
+{% block head %}
+    {{ super() }}
+    <title>
+        {% block title %}
+            Flask Platzi | 
+        {% endblock title %}
+    </title>
+    {% block styles %}
+        {{ super() }}
+        <link rel="stylesheet" href="{{url_for('static', filename = 'css/main.css')}}">
+    {% endblock styles %}
+    
+{% endblock head %}
+
+{% block body %}
+    {% block navbar %}
+        {%include "navbar.html"%}
+    {% endblock navbar %}
+    {% for message in get_flashed_messages() %}
+        {% if flash_errors %}
+            <div class="alert alert-danger alert-dismissable">
+        {% else %}
+            <div class="alert alert-success alert-dismissable">
+        {% endif %}
+            <button type="button" data-dismiss="alert" class="close">&times;</button>
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% block content %}
+        
+    {% endblock content %}
+
+    {% block scripts %}
+        {{ super() }}
+    {% endblock scripts%}
+
+{% endblock body %}

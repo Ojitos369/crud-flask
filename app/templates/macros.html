@@ -1,0 +1,16 @@
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% macro render_todo(todo, todo_update) %}
+    {% if todo['done'] %}
+        <div class="row justify-content-md-center">
+            <span class="col col-lg-4 text-success">{{ todo['description'] }}</span>
+    {% else %}
+        <div class="row">
+            <span class="col col-lg-4 text-danger">{{ todo['description'] }}</span>
+    {% endif %}
+    <a name="" id="" class="btn btn-primary col" href="/todo/toggle/{{ todo['id'] }}" role="button">Cambiar</a>
+    <a name="" id="" class="btn btn-primary col" href="/todo/delete/{{ todo['id'] }}" role="button">Delete</a>
+    {{ wtf.quick_form(todo_update, action=url_for('update', todo_id = todo['id'])) }}
+    </div>
+    <hr>
+{% endmacro %}
