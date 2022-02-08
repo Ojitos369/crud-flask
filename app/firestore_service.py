@@ -21,3 +21,10 @@ def create_user(user_data):
     user_ref.set({
         'password': user_data.password
     })
+    
+def create_todo(user_id, description):
+    todo_collection_ref = db.collection('users').document(user_id).collection('todos')
+    
+    todo_collection_ref.add({
+        'description': description
+    })

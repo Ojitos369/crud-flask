@@ -4,6 +4,7 @@ import unittest
 # User
 from app import create_app
 from app.firestore_service import *
+from app.forms import TodoForm
 
 # Flask
 from flask import request, make_response, redirect, render_template, session, url_for, flash
@@ -39,25 +40,32 @@ def home():
     return response
 
 
-@app.route('/hello')
+@app.route('/hello', methods=['GET', 'POST'])
 @login_required
 def hello_world():
     todos = []
     user_ip = session.get('user_ip')
     username = current_user.id
+    form = TodoForm()
     #users = get_users()
     if username:
         todos_res = get_todos(user_id = username)
         todos = [todo.to_dict()['description'] for todo in todos_res]
-    
     
     context = {
         'todos': todos,
         'user_ip': user_ip,
         'username': username,
         'current_user': current_user,
-        'cantidad_lista': len(todos)
+        'cantidad_lista': len(todos),
+        'form': form
     }
+    
+    if form.validate_on_submit():
+        description = form.description.data
+        create_todo(user_id = username, description = description)
+        flash('Tarea agregada')
+        return redirect(url_for('hello_world'))
     
     
     return render_template('hello.html', **context)
