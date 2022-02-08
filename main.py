@@ -101,12 +101,21 @@ def update(todo_id):
     return redirect(url_for('hello_world'))
 
 # Run the app
-# export FLASK_APP=main.py
-# export FLASK_DEBUG=1
-# export FLASK_ENV=development
-# flask run
+"""
+export FLASK_APP=main.py
+export FLASK_DEBUG=1
+export FLASK_ENV=development
+flask run
+"""
 
 # Conect with gcloud
-# gcloud init
-# gcloud auth login
-# gcloud auth application-default login
+"""
+gcloud init
+gcloud auth login
+gcloud auth application-default login
+"""
+
+# Deploy to gcloud
+"""
+gcloud app deploy app.yaml
+"""
